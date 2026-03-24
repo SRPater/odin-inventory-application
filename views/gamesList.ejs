@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1><%= title %></h1>
+  <nav>
+    <a href="/developers">Developers</a> |
+    <a href="/genres">Genres</a>
+  </nav>
+  <hr>
+  <ul>
+    <% if (games.length > 0) { %>
+      <% games.forEach(game => { %>
+        <li>
+          <a href="/games/<%= game.id %>"><%= game.name %></a>
+        </li>
+      <% }); %>
+    <% } else { %>
+      <li>No games found.</li>
+    <% } %>
+  </ul>
+</body>
+</html>

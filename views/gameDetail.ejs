@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <nav>
+    <a href="/">← Back to All Games</a>
+  </nav>
+
+  <h1><%= game.name %></h1>
+  <p><strong>Game ID:</strong> <%= game.id %></p>
+
+  <hr>
+
+  <h3>Developers</h3>
+  <ul>
+    <% if (game.developers.length > 0) { %>
+      <% game.developers.forEach(dev => { %>
+        <li>
+          <a href="/developers/<%= dev.id %>"><%= dev.name %></a>
+        </li>
+      <% }); %>
+    <% } else { %>
+      <li>No developers associated with this game.</li>
+    <% } %>
+  </ul>
+
+  <h3>Genres</h3>
+  <ul>
+    <% if (game.genres.length > 0) { %>
+      <% game.genres.forEach(genre => { %>
+        <li>
+          <a href="/genres/<%= genre.id %>"><%= genre.name %></a>
+        </li>
+      <% }); %>
+    <% } else { %>
+      <li>No genres associated with this game.</li>
+    <% } %>
+  </ul>
+</body>
+</html>

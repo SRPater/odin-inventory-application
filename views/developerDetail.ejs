@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <nav>
+    <a href="/developers">← Back to All Developers</a>
+  </nav>
+
+  <h1><%= developer.name %></h1>
+  <p><strong>Developer ID:</strong> <%= developer.id %></p>
+
+  <hr>
+
+  <h3>Games by this Developer</h3>
+  <ul>
+    <% if (developer.games.length > 0) { %>
+      <% developer.games.forEach(game => { %>
+        <li>
+          <a href="/games/<%= game.id %>"><%= game.name %></a>
+        </li>
+      <% }); %>
+    <% } else { %>
+      <li>No games listed for this developer.</li>
+    <% } %>
+  </ul>
+</body>
+</html>
