@@ -1,14 +1,15 @@
-import * as db from '../db/queries.js';
+import * as db from '../db/developersQueries.js';
 
-export const getAllDevelopers = async (req, res) => {
+export const getDevelopers = async (req, res) => {
   const developers = await db.getAllDevelopers();
+  
   res.render('developersList', {
     title: 'All Developers',
     developers,
   });
 };
 
-export const getDeveloperById = async (req, res) => {
+export const getDeveloper = async (req, res) => {
   const { id } = req.params;
   const developer = await db.getDeveloperById(id);
 
@@ -20,4 +21,13 @@ export const getDeveloperById = async (req, res) => {
     title: 'Developer Detail',
     developer,
   });
+};
+
+export const createDeveloperGet = (req, res) => {
+  res.render('createDeveloper', { title: 'Add New Developer' });
+};
+
+export const createDeveloperPost = async (req, res) => {
+  const newDevId = await db.createDeveloper(req.body.name);
+  res.redirect(`/developers/${newDevId}`);
 };

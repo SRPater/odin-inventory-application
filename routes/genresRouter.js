@@ -3,7 +3,9 @@ import * as genresController from '../controllers/genresController.js';
 
 const genresRouter = Router();
 
-genresRouter.get('/', genresController.getAllGenres);
-genresRouter.get('/:id', genresController.getGenreById);
+genresRouter.get('/', genresController.getGenres);
+genresRouter.get('/new', genresController.createGenreGet);
+genresRouter.post('/new', genresController.createGenrePost);
+genresRouter.get('/:id', genresController.getGenre);
 
 export default genresRouter;

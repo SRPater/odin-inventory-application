@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <nav>
+    <a href="/">← Back to All Games</a>
+  </nav>
+
+  <h1>Add New Game</h1>
+
+  <hr>
+
+  <form action="/games/new" method="POST">
+    <div>
+      <label for="name">Game Title:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <br>
+
+    <div>
+      <label for="developerIds">
+        Developers (Hold Ctrl/Cmd to select multiple):
+      </label>
+      <select name="developerIds" id="developerIds" multiple>
+        <% developers.forEach(dev => { %>
+          <option value="<%= dev.id %>"><%= dev.name %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <br>
+
+    <div>
+      <label for="genreIds">Genres (Hold Ctrl/Cmd to select multiple):</label>
+      <select name="genreIds" id="genreIds" multiple>
+        <% genres.forEach(genre => { %>
+          <option value="<%= genre.id %>"><%= genre.name %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <br>
+
+    <button type="submit">Create Game</button>
+  </form>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><% title %></title>
+  <title><%= title %></title>
 </head>
 <body>
   <nav>
@@ -17,12 +17,12 @@
 
   <h3>Games in this Genre</h3>
   <ul>
-    <% if (genre.games.length > 0 ) { %>
+    <% if (genre.games.length > 0) { %>
       <% genre.games.forEach(game => { %>
         <li>
           <a href="/games/<%= game.id %>"><%= game.name %></a>
         </li>
-      <%> }); %>
+      <% }); %>
     <% } else { %>
       <li>No games listed for this genre.</li>
     <% } %>

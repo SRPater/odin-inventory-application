@@ -1,14 +1,15 @@
-import * as db from '../db/queries.js';
+import * as db from '../db/genresQueries.js';
 
-export const getAllGenres = async (req, res) => {
+export const getGenres = async (req, res) => {
   const genres = await db.getAllGenres();
+  
   res.render('genresList', {
     title: 'All Genres',
     genres,
   });
 };
 
-export const getGenreById = async (req, res) => {
+export const getGenre = async (req, res) => {
   const { id } = req.params;
   const genre = await db.getGenreById(id);
 
@@ -20,4 +21,13 @@ export const getGenreById = async (req, res) => {
     title: 'Genre Detail',
     genre,
   });
+};
+
+export const createGenreGet = (req, res) => {
+  res.render('createGenre', { title: 'Add New Genre' });
+};
+
+export const createGenrePost = async (req, res) => {
+  const newGenreId = await db.createGenre(req.body.name);
+  res.redirect(`/genres/${newGenreId}`);
 };
