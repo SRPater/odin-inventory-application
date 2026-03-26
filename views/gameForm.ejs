@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <nav>
+    <% if (game) { %>
+      <a href="/games/<%= game.id %>">← Back to <%= game.name %></a>
+    <% } else { %>
+      <a href="/">← Back to All Games</a>
+    <% } %>
+  </nav>
+
+  <h1><%= title %></h1>
+
+  <hr>
+
+  <form
+    action="<%= game ? `/games/${game.id}/edit` : '/games/new' %>"
+    method="POST"
+  >
+    <div>
+      <label for="name">Game Title:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= game ? game.name : '' %>"
+        required>
+    </div>
+
+    <br>
+
+    <div>
+      <label for="developerIds">
+        Developers (Hold Ctrl/Cmd to select multiple):
+      </label>
+      <select name="developerIds" id="developerIds" multiple>
+        <% developers.forEach(dev => { %>
+          <option
+            value="<%= dev.id %>"
+            <%= (game && game.developers.some(d => d.id === dev.id))
+              ? 'selected'
+              : '' %>
+          >
+            <%= dev.name %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+
+    <br>
+
+    <div>
+      <label for="genreIds">Genres (Hold Ctrl/Cmd to select multiple):</label>
+      <select name="genreIds" id="genreIds" multiple>
+        <% genres.forEach(genre => { %>
+          <option
+            value="<%= genre.id %>"
+            <%= (game && game.genres.some(d => d.id === genre.id))
+              ? 'selected'
+              : '' %>
+          >
+            <%= genre.name %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+
+    <br>
+
+    <button type="submit">
+      <%= game ? 'Update Game' : 'Create Game' %>
+    </button>
+  </form>
+</body>
+</html>
