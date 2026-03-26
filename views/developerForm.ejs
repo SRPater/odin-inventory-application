@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <nav>
+    <a href="/developers<%= developer ? `/${developer.id}` : '' %>">
+      ← Back to <%= developer ? developer.name : 'All Developers' %>
+    </a>
+  </nav>
+
+  <h1><%= title %></h1>
+
+  <hr>
+
+  <form
+    action="/developers/<%= developer ? `${developer.id}/edit` : 'new' %>"
+    method="POST"
+  >
+    <div>
+      <label for="name">Developer Name:</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        value="<%= developer ? developer.name : '' %>"
+        required
+      >
+    </div>
+    <br>
+    <button type="submit">
+      <%= developer ? 'Update Developer' : 'Create Developer' %>
+    </button>
+  </form>
+</body>
+</html>

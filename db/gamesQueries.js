@@ -82,7 +82,7 @@ export const createGame = async(name, developerIds, genreIds) => {
 };
 
 /**
- * Updates a game's details and syncrhonizes junction tables.
+ * Updates a game's details and synchronizes junction tables.
  * Uses a "Delete-and-Insert" pattern to update associations.
  */
 export const updateGame = async(id, name, developerIds, genreIds) => {

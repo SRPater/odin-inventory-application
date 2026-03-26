@@ -7,11 +7,9 @@
 </head>
 <body>
   <nav>
-    <% if (game) { %>
-      <a href="/games/<%= game.id %>">← Back to <%= game.name %></a>
-    <% } else { %>
-      <a href="/">← Back to All Games</a>
-    <% } %>
+    <a href="<%= game ? `/games/${game.id}` : '/' %>">
+      ← Back to <%= game ? game.name : 'All Games' %>
+    </a>
   </nav>
 
   <h1><%= title %></h1>

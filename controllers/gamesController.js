@@ -3,7 +3,7 @@ import * as devsDb from '../db/developersQueries.js';
 import * as genresDb from '../db/genresQueries.js';
 
 /**
- * Fetches all games and renders the main view.
+ * Fetches all games and renders the list view.
  */
 export const getGames = async (req, res) => {
   const games = await gamesDb.getAllGames();
