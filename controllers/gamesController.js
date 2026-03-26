@@ -54,7 +54,7 @@ export const createGameGet = async (req, res) => {
  * Processes the creation of a new game and its junction table associations.
  */
 export const createGamePost = async (req, res) => {
-  const { name, developerIds, genreIds } = req.body;
+  const { name, releaseDate, developerIds, genreIds } = req.body;
 
   // Normalize form data: convert single strings or undefined into a clean array
   const devs = Array.isArray(developerIds)
@@ -65,7 +65,12 @@ export const createGamePost = async (req, res) => {
     ? genreIds
     : [genreIds].filter(Boolean);
   
-  const newGameId = await gamesDb.createGame(name, devs, genres);
+  const newGameId = await gamesDb.createGame(
+    name,
+    releaseDate || null,
+    devs,
+    genres,
+  );
 
   // Send user to the newly created game's page to see the result
   res.redirect(`/games/${newGameId}`);
@@ -73,6 +78,7 @@ export const createGamePost = async (req, res) => {
 
 /**
  * Renders the edit form populated with existing game data.
+ * Formats the release date for the HTML date input.
  */
 export const updateGameGet = async (req, res) => {
   const { id } = req.params;
@@ -88,6 +94,10 @@ export const updateGameGet = async (req, res) => {
     return res.status(404).send('Game not found');
   }
 
+  if (game.release_date) {
+    game.release_date = new Date(game.release_date).toISOString().split('T')[0];
+  }
+
   res.render('gameForm', {
     title: `Edit ${game.name}`,
     game,
@@ -101,7 +111,7 @@ export const updateGameGet = async (req, res) => {
  */
 export const updateGamePost = async (req, res) => {
   const { id } = req.params;
-  const { name, developerIds, genreIds } = req.body;
+  const { name, releaseDate, developerIds, genreIds } = req.body;
 
   const devs = Array.isArray(developerIds)
     ? developerIds
@@ -111,7 +121,7 @@ export const updateGamePost = async (req, res) => {
     ? genreIds
     : [genreIds].filter(Boolean);
   
-  await gamesDb.updateGame(id, name, devs, genres);
+  await gamesDb.updateGame(id, name, releaseDate || null, devs, genres);
 
   // Send user back to the detail page to confirm the updates worked
   res.redirect(`/games/${id}`);

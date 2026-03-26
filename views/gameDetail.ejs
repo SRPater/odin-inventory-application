@@ -12,7 +12,19 @@
   </nav>
 
   <h1><%= game.name %></h1>
-  <p><strong>Game ID:</strong> <%= game.id %></p>
+  <p>
+    <strong>Release Date:</strong>
+    <% if (game.release_date) { 
+      const date = new Date(game.release_date);
+      const day = date.getDate();
+      const month = date.toLocaleString('en-US', { month: 'long' });
+      const year = date.getFullYear();
+    %>
+      <%= `${day} ${month}, ${year}` %>
+    <% } else { %>
+      Unknown
+    <% } %>
+  </p>
 
   <hr>
 

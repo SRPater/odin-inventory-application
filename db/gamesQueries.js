@@ -50,10 +50,10 @@ export const getGameById = async (id) => {
 /**
  * Creates a new game record and inserts its many-to-many relationships.
  */
-export const createGame = async(name, developerIds, genreIds) => {
+export const createGame = async(name, releaseDate, developerIds, genreIds) => {
   const { rows } = await pool.query(
-    'INSERT INTO games (name) VALUES ($1) RETURNING id',
-    [name]
+    'INSERT INTO games (name, release_date) VALUES ($1, $2) RETURNING id',
+    [name, releaseDate]
   );
 
   const gameId = rows[0].id;
@@ -85,10 +85,16 @@ export const createGame = async(name, developerIds, genreIds) => {
  * Updates a game's details and synchronizes junction tables.
  * Uses a "Delete-and-Insert" pattern to update associations.
  */
-export const updateGame = async(id, name, developerIds, genreIds) => {
+export const updateGame = async(
+  id,
+  name,
+  releaseDate,
+  developerIds,
+  genreIds
+) => {
   await pool.query(
-    'UPDATE games SET name = $1 WHERE id = $2',
-    [name, id],
+    'UPDATE games SET name = $1, release_date = $2 WHERE id = $3',
+    [name, releaseDate, id],
   );
 
   // Sync Developers: Remove all current associations and re-add from the

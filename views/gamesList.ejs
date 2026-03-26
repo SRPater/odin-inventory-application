@@ -17,7 +17,12 @@
     <% if (games.length > 0) { %>
       <% games.forEach(game => { %>
         <li>
-          <a href="/games/<%= game.id %>"><%= game.name %></a>
+          <a href="/games/<%= game.id %>">
+            <%= game.name %>
+            <% if (game.release_date) { %>
+              (<%= new Date(game.release_date).getFullYear() %>)
+            <% } %>
+          </a>
         </li>
       <% }); %>
     <% } else { %>
