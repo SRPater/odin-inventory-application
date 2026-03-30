@@ -74,3 +74,14 @@ export const updateDeveloperPost = async (req, res) => {
   // Send user back to the detail page to confirm the updates worked
   res.redirect(`/developers/${id}`);
 };
+
+/**
+ * Delets an existing developer.
+ */
+export const deleteDeveloper = async (req, res) => {
+  const { id } = req.params;
+  await db.deleteDeveloper(id);
+
+  // Send user to developers list to confirm the delete worked
+  res.redirect('/developers');
+};

@@ -11,6 +11,8 @@ gamesRouter.post('/games/new', gamesController.createGamePost);
 gamesRouter.get('/games/:id/edit', gamesController.updateGameGet);
 gamesRouter.post('/games/:id/edit', gamesController.updateGamePost);
 
+gamesRouter.post('/games/:id/delete', gamesController.deleteGame);
+
 gamesRouter.get('/games/:id', gamesController.getGame);
 
 export default gamesRouter;

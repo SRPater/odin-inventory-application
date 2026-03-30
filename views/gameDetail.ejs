@@ -13,19 +13,15 @@
 
   <h1><%= game.name %></h1>
   <p>
-    <strong>Release Date:</strong>
-    <% if (game.release_date) { 
-      const date = new Date(game.release_date);
-      const day = date.getDate();
-      const month = date.toLocaleString('en-US', { month: 'long' });
-      const year = date.getFullYear();
-    %>
-      <%= `${day} ${month}, ${year}` %>
-    <% } else { %>
-      Unknown
-    <% } %>
+    <strong>Release Date:</strong> <%= formattedDate %>
   </p>
-
+  <form
+    action="/games/<%= game.id %>/delete"
+    method="POST"
+    onsubmit="return confirm('Are you sure you want to delete this game?')"
+  >
+    <button type="submit">Delete</button>
+  </form>
   <hr>
 
   <h3>Developers</h3>

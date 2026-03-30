@@ -29,7 +29,8 @@ export const getDeveloperById = async (id) => {
   const gamesResult = await pool.query(
     `SELECT games.* FROM games
      JOIN game_developers ON games.id = game_developers.game_id
-     WHERE game_developers.developer_id = $1`,
+     WHERE game_developers.developer_id = $1
+     ORDER BY games.name ASC`,
     [id],
   );
 
@@ -57,4 +58,11 @@ export const updateDeveloper = async (id, name) => {
     'UPDATE developers SET name = $1 WHERE id = $2',
     [name, id],
   );
+};
+
+/**
+ * Deletes a developer record from the database.
+ */
+export const deleteDeveloper = async (id) => {
+  await pool.query('DELETE FROM developers WHERE id = $1', [id]);
 };

@@ -26,9 +26,22 @@ export const getGame = async (req, res) => {
     return res.status(404).send('Game not found');
   }
 
+  // Format release date before rendering the detail view
+  let formattedDate = 'Unknown';
+  
+  if (game.release_date) {
+    const date = new Date(game.release_date);
+    formattedDate = date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  }
+
   res.render('gameDetail', {
     title: 'Game Detail',
     game,
+    formattedDate,
   });
 };
 
@@ -125,4 +138,15 @@ export const updateGamePost = async (req, res) => {
 
   // Send user back to the detail page to confirm the updates worked
   res.redirect(`/games/${id}`);
+};
+
+/**
+ * Deletes an existing game.
+ */
+export const deleteGame = async (req, res) => {
+  const { id } = req.params;
+  await gamesDb.deleteGame(id);
+
+  // Send user to games list to confirm the delete worked
+  res.redirect('/');
 };

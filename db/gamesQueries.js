@@ -29,7 +29,8 @@ export const getGameById = async (id) => {
   const devsResult = await pool.query(
     `SELECT developers.* FROM developers
      JOIN game_developers ON developers.id = game_developers.developer_id
-     WHERE game_developers.game_id = $1`,
+     WHERE game_developers.game_id = $1
+     ORDER BY developers.name ASC`,
     [id],
   );
 
@@ -37,7 +38,8 @@ export const getGameById = async (id) => {
   const genresResult = await pool.query(
     `SELECT genres.* FROM genres
      JOIN game_genres ON genres.id = game_genres.genre_id
-     WHERE game_genres.game_id = $1`,
+     WHERE game_genres.game_id = $1
+     ORDER BY genres.name ASC`,
     [id],
   );
 
@@ -122,4 +124,11 @@ export const updateGame = async(
       );
     }
   }
+};
+
+/**
+ * Deletes a game record from the database.
+ */
+export const deleteGame = async (id) => {
+  await pool.query('DELETE FROM games WHERE id = $1', [id]);
 };

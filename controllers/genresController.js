@@ -74,3 +74,14 @@ export const updateGenrePost = async (req, res) => {
   // Send user back to the detail page to confirm the updates worked
   res.redirect(`/genres/${id}`);
 };
+
+/**
+ * Deletes an existing genre.
+ */
+export const deleteGenre = async (req, res) => {
+  const { id } = req.params;
+  await db.deleteGenre(id);
+
+  // Send user back to genres list to confirm the delete worked
+  res.redirect('/genres');
+};

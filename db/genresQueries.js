@@ -29,7 +29,8 @@ export const getGenreById = async (id) => {
   const gamesResult = await pool.query(
     `SELECT games.* FROM games
      JOIN game_genres ON games.id = game_genres.game_id
-     WHERE game_genres.genre_id = $1`,
+     WHERE game_genres.genre_id = $1
+     ORDER BY games.name ASC`,
     [id],
   );
 
@@ -57,4 +58,11 @@ export const updateGenre = async (id, name) => {
     'UPDATE genres SET name = $1 WHERE id = $2',
     [name, id],
   );
+};
+
+/**
+ * Deletes a genre record from the database.
+ */
+export const deleteGenre = async (id) => {
+  await pool.query('DELETE FROM genres WHERE id = $1', [id]);
 };
