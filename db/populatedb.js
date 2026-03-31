@@ -1,12 +1,7 @@
 import { Client } from 'pg';
-import 'dotenv/config';
 
 const client = new Client({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASS,
-  port: parseInt(process.env.DB_PORT, 10) || 5432,
+  connectionString: process.env.DATABASE_URL
 });
 
 const SQL = `
@@ -71,7 +66,7 @@ INSERT INTO game_genres (game_id, genre_id) VALUES
 `;
 
 async function main() {
-  console.log(`Seeding to ${isProd ? 'PRODUCTION' : 'LOCAL'}...`);
+  console.log('Seeding...');
 
   try {
     await client.connect();
