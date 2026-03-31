@@ -1,15 +1,13 @@
 import { Client } from 'pg';
 import 'dotenv/config';
 
-const isProd = process.argv.includes('--prod');
-const dbConfig = {
-  user: isProd ? process.env.DB_USER_PROD : process.env.DB_USER_LOCAL,
-  host: isProd ? process.env.DB_HOST_PROD : process.env.DB_HOST_LOCAL,
-  database: isProd ? process.env.DB_NAME_PROD : process.env.DB_NAME_LOCAL,
-  password: isProd ? process.env.DB_PASS_PROD : process.env.DB_PASS_LOCAL,
-  port: isProd ? process.env.DB_PORT_PROD : process.env.DB_PORT_LOCAL,
-  ssl: isProd ? { rejectUnauthorized: false } : false,
-};
+const client = new Client({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
+  port: parseInt(process.env.DB_PORT, 10) || 5432,
+});
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS developers (
@@ -74,8 +72,6 @@ INSERT INTO game_genres (game_id, genre_id) VALUES
 
 async function main() {
   console.log(`Seeding to ${isProd ? 'PRODUCTION' : 'LOCAL'}...`);
-
-  const client = new Client(dbConfig);
 
   try {
     await client.connect();
